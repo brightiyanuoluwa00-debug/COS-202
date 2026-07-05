@@ -1,0 +1,66 @@
+from tkinter import *
+
+root = Tk()
+root.title("Mathematical Calculator")
+root.geometry("350x500")
+
+expression = ""
+
+entry = Entry(root, font=("Arial", 20), bd=10, relief=RIDGE, justify="right")
+entry.pack(fill=BOTH, ipadx=8, ipady=15)
+
+def press(value):
+    global expression
+    expression += str(value)
+    entry.delete(0, END)
+    entry.insert(END, expression)
+
+def clear():
+    global expression
+    expression = ""
+    entry.delete(0, END)
+
+def equal():
+    global expression
+    try:
+        result = str(eval(expression))
+        entry.delete(0, END)
+        entry.insert(END, result)
+        expression = result
+    except:
+        entry.delete(0, END)
+        entry.insert(END, "Error")
+        expression = ""
+
+def off():
+    root.destroy()
+
+buttons = [
+    ['7','8','9','/'],
+    ['4','5','6','*'],
+    ['1','2','3','-'],
+    ['0','.','%','+'],
+    ['^','C','=','OFF']
+]
+
+frame = Frame(root)
+frame.pack()
+
+for row in buttons:
+    row_frame = Frame(frame)
+    row_frame.pack(expand=True, fill="both")
+    for text in row:
+        if text == "=":
+            btn = Button(row_frame, text=text, font=("Arial",16), command=equal)
+        elif text == "C":
+            btn = Button(row_frame, text=text, font=("Arial",16), command=clear)
+        elif text == "OFF":
+            btn = Button(row_frame, text=text, font=("Arial",16), command=off)
+        elif text == "^":
+            btn = Button(row_frame, text=text, font=("Arial",16), command=lambda: press("**"))
+        else:
+            btn = Button(row_frame, text=text, font=("Arial",16), command=lambda t=text: press(t))
+
+        btn.pack(side=LEFT, expand=True, fill="both")
+
+root.mainloop()

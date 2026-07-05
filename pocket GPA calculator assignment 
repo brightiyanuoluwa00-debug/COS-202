@@ -1,0 +1,54 @@
+print("PERSONAL POCKET CGPA CALCULATOR")
+
+num_courses = int(input("Enter number of courses: "))
+
+total_points = 0
+total_units = 0
+
+for i in range(1, num_courses + 1):
+    print(f"\nCourse {i}")
+
+    unit = int(input("Credit Unit: "))
+    score = float(input("Score (0-100): "))
+
+    if 70 <= score <= 100:
+        grade = "A"
+        point = 5
+    elif 60 <= score <= 69:
+        grade = "B"
+        point = 4
+    elif 50 <= score <= 59:
+        grade = "C"
+        point = 3
+    elif 45 <= score <= 49:
+        grade = "D"
+        point = 2
+    elif 40 <= score <= 44:
+        grade = "E"
+        point = 1
+    else:
+        grade = "F"
+        point = 0
+
+    print("Grade:", grade)
+
+    total_points += point * unit
+    total_units += unit
+
+cgpa = total_points / total_units
+
+print("\n==========================")
+print("Total Credit Units:", total_units)
+print("Total Grade Points:", total_points)
+print("CGPA = {:.2f}".format(cgpa))
+
+if cgpa >= 4.50:
+    print("Class of Degree: First Class")
+elif cgpa >= 3.50:
+    print("Class of Degree: Second Class Upper")
+elif cgpa >= 2.40:
+    print("Class of Degree: Second Class Lower")
+elif cgpa >= 1.50:
+    print("Class of Degree: Third Class")
+else:
+    print("Class of Degree: Pass")    
